@@ -1,0 +1,38 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: unsia-library-mongo
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: unsia-library-backend
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    environment:
+      PORT: 5000
+      NODE_ENV: production
+      MONGO_URI: mongodb://mongodb:27017/unsia-library
+      JWT_SECRET: unsia_library_secret_key_2026_aman_dan_rahasia_12345
+      JWT_EXPIRES_IN: 1d
+      CLIENT_URL: '*'
+      AUTO_SEED: 'true'
+    ports:
+      - '5000:5000'
+
+  frontend:
+    build: ./frontend
+    container_name: unsia-library-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - '8080:80'
+
+volumes:
+  mongo-data:
