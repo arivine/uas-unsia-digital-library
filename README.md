@@ -24,13 +24,13 @@ uas-unsia-digital-library/
 │       ├── controllers/     # logika endpoint
 │       ├── routes/          # routing modular
 │       ├── middleware/      # auth (protected), validator, error handler
-│       ├── utils/           # generateToken
+│       ├── utils/           # generateToken, asyncHandler
 │       ├── app.js           # setup express
 │       └── server.js        # entry point
 ├── frontend/                # React + Vite + Chart.js
 │   └── src/
 │       ├── pages/           # Login, Register, Dashboard, Books, Members, Loans, NotFound
-│       ├── components/      # Navbar, ProtectedRoute, Modal, StatCard, Layout
+│       ├── components/      # Navbar, ProtectedRoute, Modal, StatCard, Layout, Icons
 │       ├── context/         # AuthContext (token + user)
 │       └── api/             # axios client
 ├── docker-compose.yml
@@ -63,7 +63,6 @@ Setelah selesai:
 cd backend
 npm install
 cp .env.example .env     # sesuaikan MONGO_URI jika perlu
-npm run seed             # (opsional) isi data contoh + akun admin
 npm run dev
 ```
 
@@ -79,12 +78,14 @@ Buka http://localhost:5173.
 
 ## Akun & Data Contoh
 
-Jalankan `npm run seed` (atau otomatis lewat opsi seed) untuk membuat data contoh:
+Data contoh **dimuat otomatis** saat database masih kosong (fitur auto-seed). Akun yang tersedia:
 
 | Keterangan      | Nilai                       |
 |-----------------|-----------------------------|
 | Email           | `admin@unsia.ac.id`         |
 | Password        | `admin123`                  |
+
+Data contoh meliputi 6 buku, 3 anggota, dan 3 transaksi peminjaman. Untuk mengatur ulang data, jalankan `npm run seed` di folder `backend`, atau set `AUTO_SEED=false` di `.env` untuk menonaktifkan auto-seed.
 
 ## Endpoint API
 

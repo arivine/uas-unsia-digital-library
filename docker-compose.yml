@@ -9,7 +9,9 @@ services:
       - mongo-data:/data/db
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      network: host
     container_name: unsia-library-backend
     restart: unless-stopped
     depends_on:
@@ -26,7 +28,9 @@ services:
       - '5000:5000'
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      network: host
     container_name: unsia-library-frontend
     restart: unless-stopped
     depends_on:
